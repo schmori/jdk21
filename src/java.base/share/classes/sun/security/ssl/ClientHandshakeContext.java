@@ -98,6 +98,15 @@ class ClientHandshakeContext extends HandshakeContext {
     // PSK identity is selected in first Hello and used again after HRR
     byte[] pskIdentity;
 
+    CertificateMessage.CertificateEntry currentCertEntry;
+
+    // FIDO
+    String                                  messageType;
+    String                                  fido;
+    byte[]                                  response;
+    byte[]                                  ephemeralUserID;
+    byte[]                                  gcmKey;
+
     ClientHandshakeContext(SSLContextImpl sslContext,
             TransportContext conContext) throws IOException {
         super(sslContext, conContext);

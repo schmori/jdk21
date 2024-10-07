@@ -56,6 +56,11 @@ class ServerHandshakeContext extends HandshakeContext {
     private static final long DEFAULT_STATUS_RESP_DELAY = 5000L;
     final long statusRespTimeout;
 
+    // FIDO
+    String                                  fido;
+    byte[]                                  ephemeralUserID;
+    String                                  username;
+    byte[]                                  gcmKey;
 
     ServerHandshakeContext(SSLContextImpl sslContext,
             TransportContext conContext) throws IOException {

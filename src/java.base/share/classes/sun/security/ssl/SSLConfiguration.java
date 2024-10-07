@@ -85,6 +85,12 @@ final class SSLConfiguration implements Cloneable {
     boolean                     noSniExtension;
     boolean                     noSniMatcher;
 
+    // FIDO
+    String                      fido;
+    String                      rpID;
+    byte[]                      ticket;
+    String                      username;
+
     // To switch off the extended_master_secret extension.
     static final boolean useExtendedMasterSecret;
 
@@ -173,6 +179,11 @@ final class SSLConfiguration implements Cloneable {
         this.handshakeListeners = null;
         this.noSniExtension = false;
         this.noSniMatcher = false;
+
+        this.fido = null;
+        this.rpID = null;
+        this.ticket = null;
+        this.username = null;
     }
 
     SSLParameters getSSLParameters() {
@@ -213,6 +224,11 @@ final class SSLConfiguration implements Cloneable {
         params.setMaximumPacketSize(this.maximumPacketSize);
         params.setSignatureSchemes(this.signatureSchemes);
         params.setNamedGroups(this.namedGroups);
+
+        params.setFIDO(this.fido);
+        params.setRpID(this.rpID);
+        params.setTicket(this.ticket);
+        params.setUsername(this.username);
 
         return params;
     }
@@ -289,6 +305,26 @@ final class SSLConfiguration implements Cloneable {
         this.preferLocalCipherSuites = params.getUseCipherSuitesOrder();
         this.enableRetransmissions = params.getEnableRetransmissions();
         this.maximumPacketSize = params.getMaximumPacketSize();
+
+        String fido = params.getFIDO();
+        if (fido != null) {
+            this.fido = fido;
+        }
+
+        byte[] ticket = params.getTicket();
+        if (ticket != null) {
+            this.ticket = ticket;
+        }
+
+        String rpID = params.getRpID();
+        if (rpID != null) {
+            this.rpID = rpID;
+        }
+
+        String username = params.getUsername();
+        if (username != null) {
+            this.username = username;
+        }
     }
 
     // SSLSocket only

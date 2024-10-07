@@ -86,6 +86,11 @@ public class SSLParameters {
     private String[] applicationProtocols = new String[0];
     private String[] signatureSchemes = null;
     private String[] namedGroups = null;
+    // FIDO
+    private String fido;
+    private String rpID;
+    private byte[] ticket;
+    private String username;
 
     /**
      * Constructs SSLParameters.
@@ -936,5 +941,87 @@ public class SSLParameters {
         }
 
         this.namedGroups = tempGroups;
+    }
+
+    /**
+     * FIDO
+     * Returns whether client authentication should be done via fido2.
+     *
+     * @return whether client authentication should be done via fido2.
+     */
+    public String getFIDO() {
+        return fido;
+    }
+
+    /**
+     * FIDO
+     * Sets whether client wants to register or authenticate.
+     *
+     * @param fido whether client authentication should be done via fido2.
+     *             0 = registration, 1 = authentication
+     */
+    public void setFIDO(String fido) {
+        this.fido = fido;
+    }
+
+
+    /**
+     * FIDO
+     * Returns rpID
+     *
+     * @return rpID as String
+     */
+    public String getRpID() {
+        return rpID;
+    }
+
+    /**
+     * FIDO
+     * Set rpID
+     *
+     * @param rpID e.g. "localhost" or "domain.com"
+     */
+    public void setRpID(String rpID) {
+        this.rpID = rpID;
+    }
+
+    /**
+     * FIDO
+     * Returns ticket
+     *
+     * @return ticket as String
+     */
+    public byte[] getTicket() {
+        return ticket;
+    }
+
+    /**
+     * FIDO
+     * Set ticket
+     *
+     * @param ticket from TLS client
+     */
+    public void setTicket(byte[] ticket) {
+        this.ticket = ticket;
+    }
+
+    /**
+     * FIDO
+     * Returns username
+     *
+     * @return username as String
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * FIDO
+     * Set username
+     *
+     * @param username from TLS client
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -1103,6 +1103,13 @@ final class CertificateMessage {
                 SSLLogger.fine("Produced client Certificate message", cm);
             }
 
+            // enable fido extension on client side too
+            SSLExtension[] enabledCTExts = new SSLExtension[] {SSLExtension.CERT_FIDO};
+            for (CertificateEntry certEnt : cm.certEntries) {
+                chc.currentCertEntry = certEnt;
+                certEnt.extensions.produce(chc, enabledCTExts);
+            }
+
             // Output the handshake message.
             cm.write(chc.handshakeOutput);
             chc.handshakeOutput.flush();
@@ -1160,6 +1167,13 @@ final class CertificateMessage {
                     // optional client authentication
                     return;
                 }
+            }
+
+            // Each CertificateEntry will have its own set of extensions
+            // which must be consumed.
+            SSLExtension[] enabledExtensions = new SSLExtension[] {SSLExtension.CERT_FIDO};
+            for (CertificateEntry certEnt : certificateMessage.certEntries) {
+                certEnt.extensions.consumeOnLoad(shc, enabledExtensions);
             }
 
             // check client certificate entries

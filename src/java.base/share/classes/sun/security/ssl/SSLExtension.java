@@ -479,6 +479,38 @@ enum SSLExtension implements SSLStringizer {
                                 null,
                                 RenegoInfoExtension.rniStringizer),
 
+    // FIDO extension, 001E
+
+    CH_FIDO                 (0x003E, "fido",
+                                SSLHandshake.CLIENT_HELLO,
+                                ProtocolVersion.PROTOCOLS_OF_13,
+                                FIDOExtension.chNetworkProducer,
+                                FIDOExtension.chNetworkConsumer,
+                                null,
+                                null,
+                                null,
+                                FIDOExtension.chStringizer),
+
+    SH_FIDO                 (0x003E, "fido",
+                                SSLHandshake.SERVER_HELLO,
+                                ProtocolVersion.PROTOCOLS_OF_13,
+                                FIDOExtension.shNetworkProducer,
+                                FIDOExtension.shNetworkConsumer,
+                                null,
+                                null,
+                                null,
+                                FIDOExtension.shStringizer),
+
+    CERT_FIDO                 (0x003E, "fido",
+                                SSLHandshake.CERTIFICATE,
+                                ProtocolVersion.PROTOCOLS_OF_13,
+                                FIDOExtension.certNetworkProducer,
+                                FIDOExtension.certNetworkConsumer,
+                                null,
+                                null,
+                                null,
+                                FIDOExtension.certStringizer),
+
     // RFC 8446 (TLS Protocol Version 1.3) PSK extension must be last
     CH_PRE_SHARED_KEY       (0x0029, "pre_shared_key",
                                 SSLHandshake.CLIENT_HELLO,
